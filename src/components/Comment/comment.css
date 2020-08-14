@@ -1,0 +1,35 @@
+.commentSection{
+  border-top: 1px solid grey;
+  margin: 1em 0;
+}
+
+.commentSnippet{
+  display: flex ;
+  margin: .5em 0;
+}
+
+.commentSnippet img{
+  margin:1em;
+}
+
+.commentContent{
+  border-radius:20px;
+  background-color: grey;
+  width: 100%;
+  padding-left: 1em;
+}
+.commentContent p{
+  line-height: 0;
+}
+
+form{
+  display:flex;
+  margin: 0 auto;
+}
+
+form textarea {
+  width:80%;
+}
+form button{
+  width:20%;
+}

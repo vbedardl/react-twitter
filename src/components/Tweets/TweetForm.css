@@ -1,0 +1,16 @@
+.new-tweet {
+  margin: 0 2em;
+}
+.new-tweet form {
+  display: flex;
+  flex-direction: column;
+}
+.new-tweet textarea {
+  font-weight: 700;
+  background: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 3px solid black;
+  padding: 1px;
+  height: 1.5em;
+}
