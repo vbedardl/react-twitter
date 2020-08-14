@@ -4,8 +4,15 @@ export const selectorComment = (tweetId, state) => {
 
 export const userObjectWithLikesArray = (user, state) => {
   const newUser = { ...user };
-  newUser.likedTweet = state.likedData
+  newUser.likedTweet = state.likeData
     .filter((elm) => elm.user_id === user.id)
-    .map((elm) => elm.id);
+    .map((elm) => elm.tweet_id);
+  return newUser;
+};
+
+export const userObjectWithNewLike = (user, tweet_id) => {
+  const newUser = { ...user };
+  user.likedTweet.push(tweet_id);
+
   return newUser;
 };

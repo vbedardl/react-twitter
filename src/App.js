@@ -18,6 +18,7 @@ function App() {
     loggedIn: false,
     loginFormVisible: false,
     registerFormVisible: false,
+    error: "",
     user: {},
   });
   const setTweetData = (tweetData) =>
@@ -33,6 +34,7 @@ function App() {
   const setRegisterFormVisible = (registerFormVisible) =>
     setState((prev) => ({ ...prev, registerFormVisible }));
   const setUser = (user) => setState((prev) => ({ ...prev, user }));
+  const setError = (error) => setState((prev) => ({ ...prev, error }));
 
   useEffect(() => {
     Promise.all([
@@ -44,7 +46,7 @@ function App() {
       setCommentData(all[1].data.data);
       setLikeData(all[2].data.data);
     });
-  }, []);
+  }, [state.user]);
 
   const toggleForm = () => {
     state.formVisible ? setFormVisible(false) : setFormVisible(true);
@@ -69,6 +71,10 @@ function App() {
         created_at={createdAt}
         activeUser={state.user}
         likes={tweet.likes}
+        setTweetData={setTweetData}
+        tweetData={state.tweetData}
+        setLikeData={setLikeData}
+        likeData={state.likeData}
       />
     );
   });
@@ -96,6 +102,9 @@ function App() {
     setFormVisible(false);
   };
 
+  const loginRequest = (registerObject) => {
+    return axios.post("/api/login", registerObject);
+  };
   const addNewTweet = (text) => {
     const serverTweet = {
       owner_id: state.user.id,
@@ -128,7 +137,6 @@ function App() {
       setCommentData([...state.commentData, newComment]);
     });
   }
-  console.log("user is:", state.user);
 
   return (
     <div className="App">
@@ -147,7 +155,14 @@ function App() {
         formVisible={state.formVisible}
       />
       {state.loginFormVisible && !state.loggedIn && (
-        <LoginForm setUser={setUser} setLoggedIn={setLoggedIn} />
+        <LoginForm
+          setUser={setUser}
+          setLoggedIn={setLoggedIn}
+          error={state.error}
+          setError={setError}
+          loginRequest={loginRequest}
+          state={state}
+        />
       )}
       {state.registerFormVisible && !state.loggedIn && (
         <RegistrationForm setUser={setUser} setLoggedIn={setLoggedIn} />

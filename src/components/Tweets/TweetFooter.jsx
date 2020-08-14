@@ -7,15 +7,19 @@ const ActionButton = (props) => {
 
 export default function TweetFooter(props) {
   const footerStyle = { backgroundColor: "white" };
-
+  console.log(props.user);
   return (
     <div
       className="card-footer text-muted d-flex justify-content-between"
       style={footerStyle}
     >
       <ActionButton onClick={props.onClick} text="Comment" />
-      <span onClick={props.likeTweet}>Likes {props.likes}</span>
-      <ActionButton onClick={() => console.log("Share")} text="Share" />
+      {/* {props.user.likedTweet.includes(props.tweet_id) ? (
+        <span onClick={props.dislikeTweet}>Liked {props.likes}</span>
+      ) : (
+        <span onClick={props.likeTweet}>Likes {props.likes}</span>
+      )} */}
+      <ActionButton onClick={() => console.log()} text="Share" />
     </div>
   );
 }

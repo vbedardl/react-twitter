@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TweetFooter from "./TweetFooter";
 import CommentSection from "../Comment/CommentSection";
 import axios from "axios";
+import { userObjectWithNewLike } from "../../helpers/selector";
 
 export default function Tweets(props) {
   const [commentVisible, setCommentVisible] = useState(false);
@@ -14,7 +15,14 @@ export default function Tweets(props) {
     axios
       .post("/api/like/", { tweet_id: props.tweet_id })
       .then((res) => {
-        console.log("it worked:", res);
+        const newLikeToTweet = props.tweetData.filter(
+          (elm) => elm.id === props.tweet_id
+        )[0];
+        newLikeToTweet.likes++;
+
+        props.setTweetData([...props.tweetData, newLikeToTweet]);
+        props.setUser(userObjectWithNewLike(...props.user, props.tweet_id));
+        props.setLikeData([...props.likeData, res.data.data]);
       })
       .catch((e) => console.log("didnt work"));
   };
@@ -46,6 +54,7 @@ export default function Tweets(props) {
           tweet_id={props.tweet_id}
           onClick={() => toggleComment()}
           likes={props.likes}
+          user={props.activeUser}
         />
       )}
       {commentVisible && (
