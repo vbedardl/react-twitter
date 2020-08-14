@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TweetFooter from "./TweetFooter";
 import CommentSection from "../Comment/CommentSection";
+import axios from "axios";
 
 export default function Tweets(props) {
   const [commentVisible, setCommentVisible] = useState(false);
@@ -8,6 +9,16 @@ export default function Tweets(props) {
   const toggleComment = () => {
     commentVisible ? setCommentVisible(false) : setCommentVisible(true);
   };
+
+  const likeTweet = () => {
+    axios
+      .post("/api/like/", { tweet_id: props.tweet_id })
+      .then((res) => {
+        console.log("it worked:", res);
+      })
+      .catch((e) => console.log("didnt work"));
+  };
+
   return (
     <div className="card m-3">
       <div className="card-header row m-0">
@@ -29,7 +40,14 @@ export default function Tweets(props) {
           <footer className="blockquote-footer">{props.created_at} </footer>
         </blockquote>
       </div>
-      {props.loggedin && <TweetFooter onClick={() => toggleComment()} />}
+      {props.loggedin && (
+        <TweetFooter
+          likeTweet={likeTweet}
+          tweet_id={props.tweet_id}
+          onClick={() => toggleComment()}
+          likes={props.likes}
+        />
+      )}
       {commentVisible && (
         <CommentSection
           comments={props.comments}

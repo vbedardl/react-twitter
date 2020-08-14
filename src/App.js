@@ -13,6 +13,7 @@ function App() {
   const [state, setState] = useState({
     tweetData: [],
     commentData: [],
+    likeData: [],
     formVisible: false,
     loggedIn: false,
     loginFormVisible: false,
@@ -21,6 +22,7 @@ function App() {
   });
   const setTweetData = (tweetData) =>
     setState((prev) => ({ ...prev, tweetData }));
+  const setLikeData = (likeData) => setState((prev) => ({ ...prev, likeData }));
   const setCommentData = (commentData) =>
     setState((prev) => ({ ...prev, commentData }));
   const setFormVisible = (formVisible) =>
@@ -33,12 +35,15 @@ function App() {
   const setUser = (user) => setState((prev) => ({ ...prev, user }));
 
   useEffect(() => {
-    Promise.all([axios.get("/api/tweets"), axios.get("/api/comments")]).then(
-      (all) => {
-        setTweetData(all[0].data.data.reverse());
-        setCommentData(all[1].data.data);
-      }
-    );
+    Promise.all([
+      axios.get("/api/tweets"),
+      axios.get("/api/comments"),
+      axios.get("/api/like"),
+    ]).then((all) => {
+      setTweetData(all[0].data.data.reverse());
+      setCommentData(all[1].data.data);
+      setLikeData(all[2].data.data);
+    });
   }, []);
 
   const toggleForm = () => {
@@ -63,6 +68,7 @@ function App() {
         loggedin={state.loggedIn}
         created_at={createdAt}
         activeUser={state.user}
+        likes={tweet.likes}
       />
     );
   });
@@ -122,6 +128,7 @@ function App() {
       setCommentData([...state.commentData, newComment]);
     });
   }
+  console.log("user is:", state.user);
 
   return (
     <div className="App">

@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 const ActionButton = (props) => {
   return <span onClick={props.onClick}>{props.text}</span>;
@@ -6,13 +7,14 @@ const ActionButton = (props) => {
 
 export default function TweetFooter(props) {
   const footerStyle = { backgroundColor: "white" };
+
   return (
     <div
       className="card-footer text-muted d-flex justify-content-between"
       style={footerStyle}
     >
       <ActionButton onClick={props.onClick} text="Comment" />
-      <ActionButton onClick={() => console.log("Like")} text="Likes" />
+      <span onClick={props.likeTweet}>Likes {props.likes}</span>
       <ActionButton onClick={() => console.log("Share")} text="Share" />
     </div>
   );
