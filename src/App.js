@@ -6,8 +6,8 @@ import Tweets from "./components/Tweets/Tweets";
 import axios from "axios";
 import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegistrationForm";
-import { selectorComment } from "../src/helpers/selector";
-import { chrono } from "../src/helpers/helper-functions";
+import { selectorComment } from "./helpers/selector";
+import { chrono } from "./helpers/helper-functions";
 
 function App() {
   const [state, setState] = useState({
