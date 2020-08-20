@@ -6,7 +6,7 @@ import Tweets from "./components/Tweets/Tweets";
 import axios from "axios";
 import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegistrationForm";
-import { selectorComment } from "./helpers/selector";
+import { selectorComment, finalUserObject } from "./helpers/selector";
 import { chrono } from "./helpers/helper-functions";
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
     tweetData: [],
     commentData: [],
     likeData: [],
+    followingData: [],
     formVisible: false,
     loggedIn: false,
     loginFormVisible: false,
@@ -35,23 +36,30 @@ function App() {
     setState((prev) => ({ ...prev, registerFormVisible }));
   const setUser = (user) => setState((prev) => ({ ...prev, user }));
   const setError = (error) => setState((prev) => ({ ...prev, error }));
+  const setFollowingData = (followingData) =>
+    setState((prev) => ({ ...prev, followingData }));
 
   useEffect(() => {
     Promise.all([
       axios.get("/api/tweets"),
       axios.get("/api/comments"),
       axios.get("/api/like"),
+      axios.get("/api/followings"),
     ]).then((all) => {
       setTweetData(all[0].data.data.reverse());
       setCommentData(all[1].data.data);
       setLikeData(all[2].data.data);
+      setFollowingData(all[3].data.data);
     });
-  }, [state.user]);
+  }, []);
+
+  useEffect(() => {
+    setUser(finalUserObject(state.user, state));
+  }, [state.likeData, state.followingData]);
 
   const toggleForm = () => {
     state.formVisible ? setFormVisible(false) : setFormVisible(true);
   };
-
   const tweets = state.tweetData.map((tweet) => {
     const comments = selectorComment(tweet.id, state.commentData);
     const createdAt = chrono(
@@ -61,6 +69,7 @@ function App() {
       <Tweets
         tweet_id={tweet.id}
         name={tweet.name}
+        owner_id={tweet.owner_id}
         handle={tweet.handle}
         date={tweet.date}
         text={tweet.text}
@@ -75,6 +84,8 @@ function App() {
         tweetData={state.tweetData}
         setLikeData={setLikeData}
         likeData={state.likeData}
+        followingData={state.followingData}
+        setFollowingData={setFollowingData}
       />
     );
   });
@@ -121,8 +132,6 @@ function App() {
 
       console.log(res);
     });
-
-    //setTweetData([newTweet, ...tweetData])
   };
 
   function createComment(data) {
@@ -170,6 +179,7 @@ function App() {
       {state.formVisible && (
         <TweetForm toggleForm={toggleForm} addNewTweet={addNewTweet} />
       )}
+
       {tweets}
     </div>
   );

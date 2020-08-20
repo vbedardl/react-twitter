@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+
 import axios from "axios";
 
 function useForm() {
@@ -36,7 +37,7 @@ export default function RegistrationForm(props) {
           if (res.data) {
             setError("");
             props.setLoggedIn(true);
-            props.setUser(res.data.data);
+            props.setUser({ ...res.data.data, likedTweet: [] });
           } else {
             setError("Sorry, this email is taken");
           }

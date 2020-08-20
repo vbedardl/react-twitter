@@ -1,5 +1,5 @@
 import React from "react";
-import { userObjectWithLikesArray } from "../helpers/selector";
+import { finalUserObject } from "../helpers/selector";
 import { useForm } from "../hooks/useForm";
 
 export default function LoginForm(props) {
@@ -18,7 +18,7 @@ export default function LoginForm(props) {
         if (data.data) {
           props.setError("");
           props.setLoggedIn(true);
-          props.setUser(userObjectWithLikesArray(data.data.user, props.state));
+          props.setUser(finalUserObject(data.data.user, props.state));
           return;
         } else {
           props.setError("Sorry, those credentials are invalid");
