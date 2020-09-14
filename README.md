@@ -52,3 +52,11 @@ It is a basic Twitter copycat.
 - Creating the bases of a Neural Language Processing algorithm to categorize tweets and help for the feed algorithm
 
 ## Screenshot
+
+!["Registration"](https://raw.githubusercontent.com/vbedardl/react-twitter-frontend/master/doc/TwitterScreencast_register.gif)
+
+!["Tweet"](https://raw.githubusercontent.com/vbedardl/react-twitter-frontend/master/doc/TwitterScreencast_tweet.gif)
+
+!["Like/Dislike & Follow/Unfollow"](https://raw.githubusercontent.com/vbedardl/react-twitter-frontend/master/doc/TwitterScreencast_like.gif)
+
+!["Comment"](https://raw.githubusercontent.com/vbedardl/react-twitter-frontend/master/doc/TwitterScreencast_comment.gif)
