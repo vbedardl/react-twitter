@@ -1,68 +1,54 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Twitter Copy cat
 
-## Available Scripts
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It uses a PostgreSQL database and an [express server](https://github.com/vbedardl/react-twitter-api-sql).
 
-In the project directory, you can run:
+It is a basic Twitter copycat.
 
-### `npm start`
+- You can register/login
+- Create a tweet
+- Like/dislike a tweet
+- Follow/Unfollow someone
+- Leave a comment on a tweet
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Dependencies
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- Front End
+  axios: 0.19.2
+  react: 16.13.1
+  react-dom: 16.13.1
+  react-scripts: 3.4.1
+- Back end
+  bcrypt: 5.0.0
+  body-parser: 1.19.0
+  cookie-session: 1.4.0
+  dotenv: 8.2.0
+  express: 4.17.1
+  pg: 8.3.0
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Clone and install all the required dependencies using `npm install` on the following repo:
 
-### `npm run build`
+  - [Back end API](https://github.com/vbedardl/react-twitter-api-sql)
+  - [Front end](https://github.com/vbedardl/react-twitter-frontend)
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Copy the .env.example file with your own psql db information
+- Create the database tables `\i db/schema/01_tweet_schema.sql`
+- Seed the database using `\i db/seeds/01_tweet_seeds.sql`
+- Run the server with `npm start`, then the front end with `npm start`
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Current functionalities
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- A user can register/login and logout.
+- A user can create a new tweet
+- A user can like/dislike a tweet
+- A user can follow/unfollow another user
+- A user can comment on another tweet
 
-### `npm run eject`
+## Further development
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Using Breadth-first Search to display relations degree between users.
+- Building a feed algorithm that would take into account who you follow and what tweets you have liked
+- Creating the bases of a Neural Language Processing algorithm to categorize tweets and help for the feed algorithm
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Screenshot
